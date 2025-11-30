@@ -27,7 +27,7 @@ const Register = () => {
     e.preventDefault();
     try {
       // Send role along with other data
-      await axios.post('http://localhost:5001/api/auth/register', {
+      await axios.post('https://heritagehub-server.onrender.com/api/auth/register', {
         username,
         email,
         password,

@@ -21,7 +21,7 @@ export function WriteArticle() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5001/api/articles', {
+      await axios.post('https://heritagehub-server.onrender.com/api/articles', {
         ...formData,
         author_id: userId // Attach the author ID
       });

@@ -12,7 +12,7 @@ export function Login() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5001/api/auth/login', {
+      const res = await axios.post('https://heritagehub-server.onrender.com/api/auth/login', {
         identifier, // Send 'identifier' instead of 'email'
         password
       });

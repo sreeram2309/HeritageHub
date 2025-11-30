@@ -44,7 +44,7 @@ export function AddMonument() {
     };
 
     try {
-      await axios.post('http://localhost:5001/api/monuments', finalData);
+      await axios.post('https://heritagehub-server.onrender.com/api/monuments', finalData);
       alert('Site Added Successfully!');
       navigate('/explore');
     } catch (error) {

@@ -11,7 +11,7 @@ export function ArticleDetailPage() {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/articles/${id}`);
+        const res = await axios.get(`https://heritagehub-server.onrender.com/api/articles/${id}`);
         setArticle(res.data);
         setLoading(false);
       } catch (err) {

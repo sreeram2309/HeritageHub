@@ -24,11 +24,11 @@ export function MonumentsList() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('http://localhost:5001/api/monuments');
+      const res = await axios.get('https://heritagehub-server.onrender.com/api/monuments');
       setMonuments(res.data);
 
       if (userId) {
-        const favRes = await axios.get(`http://localhost:5001/api/users/${userId}/favorites`);
+        const favRes = await axios.get(`https://heritagehub-server.onrender.com/api/users/${userId}/favorites`);
         setFavorites(favRes.data.map(m => m.id));
       }
     } catch (error) {
@@ -48,7 +48,7 @@ export function MonumentsList() {
       } else {
         setFavorites([...favorites, monumentId]);
       }
-      await axios.post('http://localhost:5001/api/favorites/toggle', {
+      await axios.post('https://heritagehub-server.onrender.com/api/favorites/toggle', {
         user_id: userId,
         monument_id: monumentId
       });
@@ -61,7 +61,7 @@ export function MonumentsList() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this site?')) {
       try {
-        await axios.delete(`http://localhost:5001/api/monuments/${id}`);
+        await axios.delete(`https://heritagehub-server.onrender.com/api/monuments/${id}`);
         fetchData();
       } catch (error) {
         alert('Failed to delete.');

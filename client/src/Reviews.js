@@ -13,7 +13,7 @@ export function Reviews({ monumentId }) {
 
   const fetchReviews = async () => {
     try {
-      const res = await axios.get(`http://localhost:5001/api/monuments/${monumentId}/reviews`);
+      const res = await axios.get(`https://heritagehub-server.onrender.com/api/monuments/${monumentId}/reviews`);
       setReviews(res.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -28,7 +28,7 @@ export function Reviews({ monumentId }) {
     if (!newRating) return alert('Please select a rating');
     
     try {
-      await axios.post(`http://localhost:5001/api/monuments/${monumentId}/reviews`, {
+      await axios.post(`https://heritagehub-server.onrender.com/api/monuments/${monumentId}/reviews`, {
         rating: newRating,
         comment: newComment,
         user_id: userId

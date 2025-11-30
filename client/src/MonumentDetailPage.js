@@ -31,7 +31,7 @@ export function MonumentDetailPage() {
     const fetchMonument = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:5001/api/monuments/${id}`);
+        const res = await axios.get(`https://heritagehub-server.onrender.com/api/monuments/${id}`);
         setMonument(res.data);
       } catch (err) {
         setError('Error fetching monument data.');

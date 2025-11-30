@@ -21,7 +21,7 @@ export function UpcomingTours({ monumentId }) {
 
   const fetchTours = async () => {
     try {
-      const res = await axios.get(`http://localhost:5001/api/monuments/${monumentId}/tours`);
+      const res = await axios.get(`https://heritagehub-server.onrender.com/api/monuments/${monumentId}/tours`);
       setTours(res.data);
     } catch (error) {
       console.error('Error fetching tours:', error);
@@ -34,7 +34,7 @@ export function UpcomingTours({ monumentId }) {
 
   const handleSchedule = async () => {
     try {
-      await axios.post('http://localhost:5001/api/tours', {
+      await axios.post('https://heritagehub-server.onrender.com/api/tours', {
         monument_id: monumentId,
         guide_id: userId,
         tour_date: date,
@@ -52,7 +52,7 @@ export function UpcomingTours({ monumentId }) {
   const handleBook = async (tourId) => {
     if (!userId) return alert("Please log in to book a ticket.");
     try {
-      await axios.post(`http://localhost:5001/api/tours/${tourId}/book`, { user_id: userId });
+      await axios.post(`https://heritagehub-server.onrender.com/api/tours/${tourId}/book`, { user_id: userId });
       alert('Ticket Booked! See you there.');
     } catch (error) {
       alert(error.response?.data?.message || 'Booking failed');
@@ -61,7 +61,7 @@ export function UpcomingTours({ monumentId }) {
 
   const viewAttendees = async (tourId) => {
     try {
-        const res = await axios.get(`http://localhost:5001/api/tours/${tourId}/attendees`);
+        const res = await axios.get(`https://heritagehub-server.onrender.com/api/tours/${tourId}/attendees`);
         setAttendees(res.data);
         setAttendeeModal(true);
     } catch (error) {

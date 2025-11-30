@@ -9,7 +9,7 @@ export function CulturePage() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const res = await axios.get('http://localhost:5001/api/articles');
+        const res = await axios.get('https://heritagehub-server.onrender.com/api/articles');
         setArticles(res.data);
       } catch (error) {
         console.error('Error fetching articles:', error);

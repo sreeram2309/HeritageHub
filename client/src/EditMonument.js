@@ -26,7 +26,7 @@ export function EditMonument() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/monuments/${id}`);
+        const res = await axios.get(`https://heritagehub-server.onrender.com/api/monuments/${id}`);
         
         setFormData({
             name: res.data.name,
@@ -80,7 +80,7 @@ export function EditMonument() {
     };
 
     try {
-      await axios.put(`http://localhost:5001/api/monuments/${id}`, finalData);
+      await axios.put(`https://heritagehub-server.onrender.com/api/monuments/${id}`, finalData);
       alert('Monument Updated Successfully!');
       navigate('/explore');
     } catch (error) {

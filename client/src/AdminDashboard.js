@@ -18,7 +18,7 @@ export function AdminDashboard() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5001/api/users');
+      const res = await axios.get('https://heritagehub-server.onrender.com/api/users');
       setUsers(res.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -31,7 +31,7 @@ export function AdminDashboard() {
 
   const handleRoleChange = async (userId, newRole) => {
     try {
-      await axios.put(`http://localhost:5001/api/users/${userId}/role`, { role: newRole });
+      await axios.put(`https://heritagehub-server.onrender.com/api/users/${userId}/role`, { role: newRole });
       fetchUsers(); // Refresh the list
     } catch (error) {
       alert('Failed to update role');
@@ -41,7 +41,7 @@ export function AdminDashboard() {
   const handleDelete = async (userId) => {
     if (window.confirm('Are you sure? This will delete the user and all their content.')) {
       try {
-        await axios.delete(`http://localhost:5001/api/users/${userId}`);
+        await axios.delete(`https://heritagehub-server.onrender.com/api/users/${userId}`);
         fetchUsers();
       } catch (error) {
         alert('Failed to delete user');

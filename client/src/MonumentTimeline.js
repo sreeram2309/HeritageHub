@@ -8,7 +8,7 @@ export function MonumentTimeline({ monumentId }) {
   useEffect(() => {
     const fetchTimeline = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/monuments/${monumentId}/timeline`);
+        const res = await axios.get(`https://heritagehub-server.onrender.com/api/monuments/${monumentId}/timeline`);
         setEvents(res.data);
       } catch (error) {
         console.error('Error fetching timeline:', error);

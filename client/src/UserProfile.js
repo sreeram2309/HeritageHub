@@ -17,7 +17,7 @@ export function UserProfile() {
     // Fetch Favorites
     const fetchFavorites = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/users/${userId}/favorites`);
+        const res = await axios.get(`https://heritagehub-server.onrender.com/api/users/${userId}/favorites`);
         setFavorites(res.data);
       } catch (error) {
         console.error('Error fetching favorites:', error);
@@ -27,7 +27,7 @@ export function UserProfile() {
     // Fetch Bookings (NEW!)
     const fetchBookings = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/users/${userId}/bookings`);
+        const res = await axios.get(`https://heritagehub-server.onrender.com/api/users/${userId}/bookings`);
         setBookings(res.data);
       } catch (error) {
         console.error('Error fetching bookings:', error);
