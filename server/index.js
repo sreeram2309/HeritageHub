@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const pool = require('./db'); // Our database connection module
 
 const app = express();
-const port = 5001; // <-- Port is 5001
+const port = process.env.PORT || 5001;
 
 // === MIDDLEWARE ===
 app.use(cors());
