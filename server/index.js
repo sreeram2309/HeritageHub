@@ -9,22 +9,12 @@ const app = express();
 const port = process.env.PORT || 5001;
 
 // === MIDDLEWARE ===
-const allowedOrigins = [
-  'http://localhost:3000', 
-  'https://heritagehub-1.onrender.com' // <-- YOUR LIVE FRONTEND URL
-];
+const allowedOrigins = [ /* your domains */ ];
+app.use(cors({ origin: (origin, callback) => { /* logic */ } }));
+app.use(express.json());
 
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps)
-    if (!origin) return callback(null, true); 
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    // Block all other origins
-    callback(new Error('Not allowed by CORS'));
-  }
-}));
+app.use(cors()); // <--- This allows all domains (localhost and your Render domain)
+app.use(express.json());
 
 app.use(express.json());
 
