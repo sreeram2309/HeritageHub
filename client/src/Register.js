@@ -1,96 +1,115 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
+import { Container, Paper, Title, TextInput, PasswordInput, Button, Text, Anchor, Select } from '@mantine/core';
 
 const Register = () => {
-  // useState hook to manage our form's data
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
+    role: 'User', // Default role
   });
 
-  // Destructure for easier access
-  const { username, email, password } = formData;
+  const { username, email, password, role } = formData;
 
-  // This function updates the state whenever a user types in an input field
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // This function handles the form submission
+  // Special handler for the Mantine Select component
+  const onRoleChange = (value) => {
+    setFormData({ ...formData, role: value });
+  };
+
   const onSubmit = async (e) => {
-    e.preventDefault(); // Prevents the page from reloading on submit
-
-    // Create the user object to send to the backend
-    const newUser = {
-      username,
-      email,
-      password,
-    };
-
+    e.preventDefault();
     try {
-      // Set up headers for the POST request
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
+      // Send role along with other data
+      await axios.post('http://localhost:5001/api/auth/register', {
+        username,
+        email,
+        password,
+        role 
+      });
 
-      // The body of the request is our newUser object, converted to a JSON string
-      const body = JSON.stringify(newUser);
-
-      // Make the POST request to our registration endpoint
-      const res = await axios.post('http://localhost:5001/api/auth/register', body, config);
-
-      // If successful, log the response and show a success message
-      console.log(res.data);
-      alert('Registration successful!');
+      alert('Registration Successful! Please log in.');
+      navigate('/login');
 
     } catch (error) {
-      // If there's an error (e.g., user already exists), log it and show an error message
       console.error(error.response.data);
-      alert('Error: ' + error.response.data.message);
+      alert('Error: ' + (error.response?.data?.message || 'Registration failed'));
     }
   };
 
   return (
-    <div className="form-container">
-      <h1>Register Account</h1>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label>Username</label>
-          <input
-            type="text"
+    <Container size={420} my={40}>
+      <Title align="center">Join HeritageHub</Title>
+      
+      <Text c="dimmed" size="sm" align="center" mt={5}>
+        Already have an account?{' '}
+        <Link to="/login" style={{ textDecoration: 'none' }}>
+            <Anchor size="sm" component="button">
+            Login
+            </Anchor>
+        </Link>
+      </Text>
+
+      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+        <form onSubmit={onSubmit}>
+          
+          <Select
+            label="I want to join as a..."
+            placeholder="Pick one"
+            data={[
+              { value: 'User', label: 'Cultural Enthusiast (Explorer)' },
+              { value: 'Tour Guide', label: 'Tour Guide (Contributor)' },
+              { value: 'Content Creator', label: 'Content Creator (Writer/Blogger)' },
+            ]}
+            value={role}
+            onChange={onRoleChange}
+            mb="md"
+            required
+          />
+
+          <TextInput
+            label="Username"
+            placeholder="Choose a username"
             name="username"
             value={username}
             onChange={onChange}
             required
+            mb="md"
           />
-        </div>
-        <div className="form-group">
-          <label>Email Address</label>
-          <input
-            type="email"
+          
+          <TextInput
+            label="Email"
+            placeholder="you@email.com"
             name="email"
             value={email}
             onChange={onChange}
             required
+            mb="md"
           />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
+
+          <PasswordInput
+            label="Password"
+            placeholder="Create a secure password"
             name="password"
             value={password}
             onChange={onChange}
-            minLength="6"
+            minLength={6}
             required
+            mb="xl"
           />
-        </div>
-        <button type="submit" className="btn">Register</button>
-      </form>
-    </div>
+
+          <Button fullWidth type="submit">
+            Register Account
+          </Button>
+        </form>
+      </Paper>
+    </Container>
   );
 };
 
