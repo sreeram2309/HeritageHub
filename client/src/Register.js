@@ -38,8 +38,9 @@ const Register = () => {
       navigate('/login');
 
     } catch (error) {
-      console.error(error.response.data);
-      alert('Error: ' + (error.response?.data?.message || 'Registration failed'));
+      // FIX: Safely check for error.response existence
+      console.error(error.response?.data || error.message);
+      alert('Error: ' + (error.response?.data?.message || 'Server is offline or blocked connection.'));
     }
   };
 

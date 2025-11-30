@@ -9,15 +9,24 @@ const app = express();
 const port = process.env.PORT || 5001;
 
 // === MIDDLEWARE ===
-app.use(cors());
-app.use(express.json()); // <--- THIS IS THE MISSING LINE!
+const allowedOrigins = [
+  'http://localhost:3000', 
+  'https://heritagehub-1.onrender.com' // <-- YOUR LIVE FRONTEND URL
+];
 
-// === ROUTES ===
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps)
+    if (!origin) return callback(null, true); 
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    // Block all other origins
+    callback(new Error('Not allowed by CORS'));
+  }
+}));
 
-// --- TEST ROUTE ---
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'Hello from the Backend!' });
-});
+app.use(express.json());
 
 /**
  * =================================================================
