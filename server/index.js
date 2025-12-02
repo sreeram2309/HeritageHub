@@ -543,6 +543,6 @@ app.get('/api/users/:id/bookings', async (req, res) => {
 // Force the server to listen on the specific port and IP required by Render
 const HOST = '0.0.0.0'; 
 
-app.listen(port, HOST, () => { 
-  console.log(`Server is running on http://${HOST}:${port}`); 
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
